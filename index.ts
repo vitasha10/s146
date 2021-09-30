@@ -26,7 +26,7 @@ export interface post{
 }
 app.get('/posts/get/:from', (req:Request, res:Response) => {
     connection.promise().query('SELECT * FROM `posts` ORDER BY `id` LIMIT ?,?', [Number(req.params.from),Number(req.params.from+20)]).then(([rows, fields]) => {
-        res.json(JSON.stringify(rows))
+        res.json(rows)
     }).catch(console.log);
 })
 app.get('/post/get/:id', (req:Request, res:Response) => {
