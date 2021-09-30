@@ -1,6 +1,7 @@
-import express, {Application, Request, Response} from 'express';
-import dotenv from 'dotenv';
-import mysql from 'mysql';
+import * as express from 'express';
+import {Application, Request, Response} from 'express';
+import * as dotenv from 'dotenv';
+import * as mysql from 'mysql';
 dotenv.config();
 const connection:mysql.Connection = mysql.createConnection({
   host: process.env.DB_HOST,
@@ -50,7 +51,7 @@ app.get('/post/edit/:token/:id', (req:Request, res:Response) => {
         if(!rows[0].hasOwnProperty('token')){
             res.json({error: "token_invalid"});
         }
-        connection.query('UPDATE `posts` SET `title`=?, `date`=?, `body`=?, `attachments`=? WHERE `id`', [req.body.title,now,req.body.body,req.body.attachments], function(err, rows, fields) {
+        connection.query('UPDATE `posts` SET `title`=?, `body`=?, `attachments`=? WHERE `id`', [req.body.title,req.body.body,req.body.attachments], function(err, rows, fields) {
             res.send('""');
             res.status(202).end();
         });
