@@ -32,10 +32,9 @@ app.get('/posts/get/:from', (req:Request, res:Response) => {
     }).catch(console.log);
 })
 app.get('/post/get/:id', (req:Request, res:Response) => {
-    if(!Number.isInteger(Number(req.params.from))) res.json({error: "from_invalid"});
+    if(!Number.isInteger(Number(req.params.id))) res.json({error: "from_invalid"});
     if(Number(req.params.id)<=0) res.json({error: "id_invalid"});
     connection.promise().query('SELECT * FROM `posts` WHERE `id`=?', [Number(req.params.id)]).then(([rows]) => {
-        console.log(rows, "ddd", JSON.parse(JSON.stringify(rows)))
         res.json(JSON.parse(JSON.stringify(rows))[0])
     }).catch(console.log);
 })
