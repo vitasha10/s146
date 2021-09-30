@@ -36,7 +36,7 @@ app.get('/post/get/:id', (req:Request, res:Response) => {
     if(Number(req.params.id)<=0) res.json({error: "id_invalid"});
     connection.promise().query('SELECT * FROM `posts` WHERE `id`=?', [Number(req.params.id)]).then(([rows]) => {
         let log = JSON.parse(JSON.stringify(rows))[0];
-        console.log(typeof log);
+        if(typeof log == "undefined") res.json({error: "id_invalid"});
         res.json(log)
     }).catch(console.log);
 })
