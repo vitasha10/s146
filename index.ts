@@ -39,7 +39,7 @@ app.get('/post/get/:id', (req:Request, res:Response) => {
         res.json(JSON.parse(JSON.stringify(rows))[0])
     }).catch(console.log);
 })
-app.get('/post/add/:token/', (req:Request, res:Response) => {
+app.post('/post/add/:token/', (req:Request, res:Response) => {
     connection.promise().query('SELECT * FROM `users` WHERE `token`=?', [req.params.token]).then(([rows]) => {
         if(!JSON.parse(JSON.stringify(rows))[0].hasOwnProperty('token')){
             res.json({error: "token_invalid"});
@@ -51,7 +51,7 @@ app.get('/post/add/:token/', (req:Request, res:Response) => {
         }).catch(console.log);
     }).catch(console.log);
 })
-app.get('/post/edit/:token/:id', (req:Request, res:Response) => {
+app.post('/post/edit/:token/:id', (req:Request, res:Response) => {
     connection.promise().query('SELECT * FROM `users` WHERE `token`=?', [req.params.token]).then(([rows]) => {
         if(!JSON.parse(JSON.stringify(rows))[0].hasOwnProperty('token')){
             res.json({error: "token_invalid"});
@@ -64,7 +64,7 @@ app.get('/post/edit/:token/:id', (req:Request, res:Response) => {
         }).catch(console.log);
     }).catch(console.log);
 })
-app.get('/post/del/:token/:id', (req:Request, res:Response) => {
+app.post('/post/del/:token/:id', (req:Request, res:Response) => {
     connection.promise().query('SELECT * FROM `users` WHERE `token`=?', [req.params.token]).then(([rows]) => {
         if(!JSON.parse(JSON.stringify(rows))[0].hasOwnProperty('token')){
             res.json({error: "token_invalid"});
