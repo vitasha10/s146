@@ -25,14 +25,14 @@ export interface post{
     attachments: String,
 }
 app.get('/posts/get/:from', (req:Request, res:Response) => {
-    if(!Number.isInteger(req.params.from)) res.json({error: "from_invalid"});
+    if(!Number.isInteger(Number(req.params.from))) res.json({error: "from_invalid"});
     if(Number(req.params.from)<0) res.json({error: "from_invalid"});
     connection.promise().query('SELECT * FROM `posts` ORDER BY `id` LIMIT ?,?', [Number(req.params.from),Number(req.params.from+20)]).then(([rows]) => {
         res.json(rows)
     }).catch(console.log);
 })
 app.get('/post/get/:id', (req:Request, res:Response) => {
-    if(!Number.isInteger(req.params.id)) res.json({error: "id_invalid"});
+    if(!Number.isInteger(Number(req.params.from))) res.json({error: "from_invalid"});
     if(Number(req.params.id)<=0) res.json({error: "id_invalid"});
     connection.promise().query('SELECT * FROM `posts` WHERE `id`=?', [Number(req.params.id)]).then(([rows]) => {
         console.log(rows, "ddd", JSON.parse(JSON.stringify(rows)))
@@ -56,7 +56,7 @@ app.post('/post/edit/:token/:id', (req:Request, res:Response) => {
         if(!JSON.parse(JSON.stringify(rows))[0].hasOwnProperty('token')){
             res.json({error: "token_invalid"});
         }
-        if(!Number.isInteger(req.params.id)) res.json({error: "id_invalid"});
+        if(!Number.isInteger(Number(req.params.from))) res.json({error: "from_invalid"});
         if(Number(req.params.id)<=0) res.json({error: "id_invalid"});
         connection.promise().query('UPDATE `posts` SET `title`=?, `body`=?, `attachments`=? WHERE `id`=?', [req.body.title,req.body.body,req.body.attachments,Number(req.params.id)]).then(([rows]) => {
             res.send('""');
@@ -69,7 +69,7 @@ app.post('/post/del/:token/:id', (req:Request, res:Response) => {
         if(!JSON.parse(JSON.stringify(rows))[0].hasOwnProperty('token')){
             res.json({error: "token_invalid"});
         }
-        if(!Number.isInteger(req.params.id)) res.json({error: "id_invalid"});
+        if(!Number.isInteger(Number(req.params.from))) res.json({error: "from_invalid"});
         if(Number(req.params.id)<=0) res.json({error: "id_invalid"});
         connection.promise().query('DELETE FROM `posts` WHERE `id`=?', [Number(req.params.id)]).then(([rows]) => {
             res.send('""');
