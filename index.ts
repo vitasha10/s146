@@ -31,6 +31,7 @@ app.get('/posts/get/:from', (req:Request, res:Response) => {
 })
 app.get('/post/get/:id', (req:Request, res:Response) => {
     connection.promise().query('SELECT * FROM `posts` WHERE `id`=?', [Number(req.params.id)]).then(([rows, fields]) => {
+        console.log(rows, "ddd", JSON.parse(JSON.stringify(rows)))
         res.json(JSON.parse(JSON.stringify(rows))[0])
     }).catch(console.log);
 })
