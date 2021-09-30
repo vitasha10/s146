@@ -35,7 +35,9 @@ app.get('/post/get/:id', (req:Request, res:Response) => {
     if(!Number.isInteger(Number(req.params.id))) res.json({error: "from_invalid"});
     if(Number(req.params.id)<=0) res.json({error: "id_invalid"});
     connection.promise().query('SELECT * FROM `posts` WHERE `id`=?', [Number(req.params.id)]).then(([rows]) => {
-        res.json(JSON.parse(JSON.stringify(rows))[0])
+        let log = JSON.parse(JSON.stringify(rows))[0];
+        console.log(typeof log);
+        res.json(log)
     }).catch(console.log);
 })
 app.post('/post/add/:token/', (req:Request, res:Response) => {
