@@ -2,6 +2,7 @@ import * as express from 'express';
 import {Request, Response} from 'express';
 import * as dotenv from 'dotenv';
 import * as mysql from 'mysql2';
+import cors from 'cors';
 dotenv.config();
 const connection = mysql.createConnection({
   host: process.env.DB_HOST,
@@ -10,7 +11,7 @@ const connection = mysql.createConnection({
   database: process.env.DB_NAME,
 });
 connection.connect();
-const app = express();
+const app = express.default();
 const port = process.env.PORT;
 app.use(express.json());
 app.use(express.urlencoded());
