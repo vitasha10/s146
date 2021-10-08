@@ -37,11 +37,11 @@ export interface IPost{
     titlePicture : string
 }
 
-app.get('/static_post/get/:name', (req: Request, res: Response) => {
-    connection.promise().query("SELECT * FROM `static_post` WHERE `name`=?", [req.params.name]).then(([rows]) => {
+app.get('/static_post/get/:urlRoute', (req: Request, res: Response) => {
+    connection.promise().query("SELECT * FROM `static_post` WHERE `urlRoute`=?", [req.params.urlRoute]).then(([rows]) => {
         let log = JSON.parse(JSON.stringify(rows))[0];
         if (typeof log == "undefined") 
-            res.json({error: "name_invalid"});
+            res.json({error: "urlRoute_invalid"});
         res.json(log)
     }).catch(console.log);
 });
