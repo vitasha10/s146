@@ -38,7 +38,7 @@ export interface IPost{
 }
 
 app.get('/static_post/get', (req: Request, res: Response) => {
-    connection.promise().query("SELECT * FROM `static_post` ORDER BY `id`").then(([rows]) => {
+    connection.promise().query("SELECT `urlRoute` FROM `static_post` ORDER BY `id`").then(([rows]) => {
         res.json(rows)
     }).catch(console.log);
 })
