@@ -72,8 +72,7 @@ app.post('/post/add/:token/', (req: Request, res: Response) => {
             res.json({error: "token_invalid"});
         
         let now : string = new Date().toLocaleString();
-        connection.promise().query("INSERT INTO `posts` (`title`,`date`,`body`,`attachments`) VALUES (?,?,?,?)", [req.body.title, now, req.body.body, req.body.attachments]).then(([rows]) => {
-            res.send('""');
+        connection.promise().query("INSERT INTO `posts` (`title`,`date`,`body`,`attachments`, `titlePicture`) VALUES (?,?,?,?,?)", [req.body.title, now, req.body.body, req.body.attachments, req.body.titlePicture]).then(([rows]) => {
             res.status(201).end();
         }).catch(console.log);
     }).catch(console.log);
@@ -90,8 +89,7 @@ app.post('/post/edit/:token/:id', (req: Request, res: Response) => {
         if (Number(req.params.id) <= 0) 
             res.json({error: "id_invalid"});
         
-        connection.promise().query("UPDATE `posts` SET `title`=?, `body`=?, `attachments`=? WHERE `id`=?", [req.body.title, req.body.body, req.body.attachments, Number(req.params.id)]).then(([rows]) => {
-            res.send('""');
+        connection.promise().query("UPDATE `posts` SET `title`=?, `body`=?, `attachments`=?, `titlePicture`=? WHERE `id`=?", [req.body.title, req.body.body, req.body.attachments, req.body.titlePicture, Number(req.params.id)]).then(([rows]) => {
             res.status(202).end();
         }).catch(console.log);
     }).catch(console.log);
@@ -110,7 +108,6 @@ app.post('/post/del/:token/:id', (req: Request, res: Response) => {
             res.json({error: "id_invalid"});
 
         connection.promise().query("DELETE FROM `posts` WHERE `id`=?", [Number(req.params.id)]).then(([rows]) => {
-            res.send('""');
             res.status(202).end();
         }).catch(console.log);
     }).catch(console.log);
