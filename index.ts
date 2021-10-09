@@ -96,7 +96,7 @@ app.get('/posts/get/:from', (req: Request, res: Response) => {
     if (Number(req.params.from) < 0) 
         res.json({error: "from_invalid"});
     
-    connection.promise().query("SELECT * FROM `posts` ORDER BY `id` LIMIT ?,?", [Number(req.params.from),Number(req.params.from+20)]).then(([rows]) => {
+    connection.promise().query("SELECT * FROM `posts` ORDER BY `id` DESC LIMIT ?,?", [Number(req.params.from),Number(req.params.from+20)]).then(([rows]) => {
         res.json(rows)
     }).catch(console.log);
 })
