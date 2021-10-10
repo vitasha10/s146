@@ -70,7 +70,7 @@ app.post('/static_post/edit/:token/:urlRoute', (req: Request, res: Response) => 
         if (!JSON.parse(JSON.stringify(rows))[0].hasOwnProperty('token'))
             res.json({error: "token_invalid"});
         
-            connection.promise().query("UPDATE `static_post` SET `urlRoute`=?, `title`=?, `body`=?, `attachments`=? WHERE `urlRoute`=?", [req.body.urlRoute, req.body.title, req.body.body, req.body.attachments, req.params.urlRoute]).then(([rows]) => {
+            connection.promise().query("UPDATE `static_post` SET `title`=?, `body`=?, `attachments`=? WHERE `urlRoute`=?", [req.body.urlRoute, req.body.title, req.body.body, req.body.attachments, req.params.urlRoute]).then(([rows]) => {
             res.status(202).end();
         }).catch(console.log);
     }).catch(console.log);
@@ -140,7 +140,7 @@ app.post('/post/edit/:token/:id', (req: Request, res: Response) => {
         if (Number(req.params.id) <= 0) 
             res.json({error: "id_invalid"});
         
-        connection.promise().query("UPDATE `posts` SET `title`=?, `body`=?, `attachments`=?, `titlePicture`=? WHERE `id`=?", [req.body.title, req.body.body, req.body.attachments, Number(req.params.id), req.body.titlePicture]).then(([rows]) => {
+        connection.promise().query("UPDATE `posts` SET `title`=?, `body`=?, `attachments`=?, `titlePicture`=? WHERE `id`=?", [req.body.title, req.body.body, req.body.attachments, req.body.titlePicture, Number(req.params.id)]).then(([rows]) => {
             res.status(202).end();
         }).catch(console.log);
     }).catch(console.log);
